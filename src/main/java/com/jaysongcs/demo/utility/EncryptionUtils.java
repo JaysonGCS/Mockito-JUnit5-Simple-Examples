@@ -1,7 +1,6 @@
 package com.jaysongcs.demo.utility;
 
 public class EncryptionUtils {
-
     public static String simpleEncrypt(String message) {
         StringBuilder sb = new StringBuilder();
         sb.append(message);
@@ -17,5 +16,4 @@ public class EncryptionUtils {
         sb.append("123");
         return sb.toString();
     }
-
 }

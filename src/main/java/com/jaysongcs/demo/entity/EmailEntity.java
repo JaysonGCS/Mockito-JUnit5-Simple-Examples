@@ -1,7 +1,6 @@
 package com.jaysongcs.demo.entity;
 
 public class EmailEntity {
-
     private String message;
 
     public String getMessage() {

@@ -4,7 +4,6 @@ import com.jaysongcs.demo.entity.EmailEntity;
 import com.jaysongcs.demo.utility.EncryptionUtils;
 
 public class MessageService {
-
     private final EmailService emailService;
 
     public MessageService(EmailService emailService) {
