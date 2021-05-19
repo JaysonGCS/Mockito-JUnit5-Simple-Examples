@@ -2,19 +2,16 @@ package com.jaysongcs.demo.service;
 
 import com.jaysongcs.demo.entity.EmailEntity;
 import com.jaysongcs.demo.utility.EncryptionUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.*;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
-@RunWith(MockitoJUnitRunner.class)
 class MessageServiceTest {
 
     @Mock
@@ -37,9 +34,9 @@ class MessageServiceTest {
 
         boolean result = classToTest.sendEmailMsg(msg);
 
-        Assert.assertEquals(false, result);
+        Assertions.assertEquals(false, result);
         // assertFalse is more concise
-        Assert.assertFalse(result);
+        Assertions.assertFalse(result);
 
         // never() or times(0) are not expecting method to be called in this case
         // both of them are doing the same job, just giving example here
@@ -53,7 +50,7 @@ class MessageServiceTest {
         Mockito.when(emailService.isServiceActive()).thenReturn(true);
         boolean result = classToTest.sendEmailMsg(msg);
 
-        Assert.assertTrue(result);
+        Assertions.assertTrue(result);
         Mockito.verify(emailService, Mockito.times(1)).send(any(EmailEntity.class));
 
     }
@@ -64,10 +61,10 @@ class MessageServiceTest {
         Mockito.when(emailService.isServiceActive()).thenReturn(true);
 
         boolean result = classToTest.sendEmailMsg(msg);
-        Assert.assertTrue(result);
+        Assertions.assertTrue(result);
         Mockito.verify(emailService).send(emailEntityArgCaptor.capture());
         EmailEntity emailEntity = emailEntityArgCaptor.getValue();
-        Assert.assertEquals(emailEntity.getMessage(), msg);
+        Assertions.assertEquals(emailEntity.getMessage(), msg);
     }
 
     @Test
@@ -76,7 +73,7 @@ class MessageServiceTest {
         Mockito.when(emailService.isServiceActive()).thenReturn(true);
 
         boolean result = classToTest.sendEncryptedEmailMsg(msg);
-        Assert.assertTrue(result);
+        Assertions.assertTrue(result);
         Mockito.verify(emailService, Mockito.times(1)).send(any(EmailEntity.class));
 
     }
@@ -87,10 +84,10 @@ class MessageServiceTest {
         Mockito.when(emailService.isServiceActive()).thenReturn(true);
 
         boolean result = classToTest.sendEncryptedEmailMsg(msg);
-        Assert.assertTrue(result);
+        Assertions.assertTrue(result);
         Mockito.verify(emailService).send(emailEntityArgCaptor.capture());
         EmailEntity emailEntity = emailEntityArgCaptor.getValue();
-        Assert.assertNotEquals(emailEntity.getMessage(), msg);
+        Assertions.assertNotEquals(emailEntity.getMessage(), msg);
     }
 
     @Test
@@ -103,7 +100,7 @@ class MessageServiceTest {
             // Here we expect simpleEncrypt to return crafted message if called
             encryptionUtilsMS.when(() -> EncryptionUtils.simpleEncrypt(msg)).thenReturn(encryptedMsg);
             boolean result = classToTest.sendEncryptedEmailMsg(msg);
-            Assert.assertTrue(result);
+            Assertions.assertTrue(result);
             Mockito.verify(emailService).send(emailEntityArgCaptor.capture());
             EmailEntity emailEntity = emailEntityArgCaptor.getValue();
 
@@ -114,10 +111,10 @@ class MessageServiceTest {
             // We also verify that not so simple encrypt method is not called
             encryptionUtilsMS.verify(() -> EncryptionUtils.notSoSimpleEncrypt(any()), Mockito.never());
 
-            Assert.assertNotEquals(emailEntity.getMessage(), msg);
+            Assertions.assertNotEquals(emailEntity.getMessage(), msg);
 
             // Here we are able to assert the email entity contains encrypted message
-            Assert.assertEquals(emailEntity.getMessage(), encryptedMsg);
+            Assertions.assertEquals(emailEntity.getMessage(), encryptedMsg);
         }
     }
 
@@ -131,7 +128,7 @@ class MessageServiceTest {
             // Here we expect notSoSimpleEncrypt to return crafted message if called
             encryptionUtilsMS.when(() -> EncryptionUtils.notSoSimpleEncrypt(msg)).thenReturn(encryptedMsg);
             boolean result = classToTest.sendEncryptedEmailMsg(msg);
-            Assert.assertTrue(result);
+            Assertions.assertTrue(result);
             Mockito.verify(emailService).send(emailEntityArgCaptor.capture());
             EmailEntity emailEntity = emailEntityArgCaptor.getValue();
 
@@ -142,10 +139,10 @@ class MessageServiceTest {
             // We also verify that simple encrypt method is not called
             encryptionUtilsMS.verify(() -> EncryptionUtils.simpleEncrypt(any()), Mockito.never());
 
-            Assert.assertNotEquals(emailEntity.getMessage(), msg);
+            Assertions.assertNotEquals(emailEntity.getMessage(), msg);
 
             // Here we are able to assert the email entity contains encrypted message
-            Assert.assertEquals(emailEntity.getMessage(), encryptedMsg);
+            Assertions.assertEquals(emailEntity.getMessage(), encryptedMsg);
         }
     }
 }
