@@ -28,7 +28,7 @@ class MessageServiceTest {
     }
 
     @Test
-    void when_emailService_is_inactive_sendEmailMsg_then_result_is_false_and_no_email_sent() {
+    void given_emailService_is_inactive_when_sendEmailMsg_then_result_is_false_and_no_email_sent() {
         String msg = "Test Message";
         Mockito.when(emailService.isServiceActive()).thenReturn(false);
 
