@@ -8,6 +8,12 @@ public class EmailService {
     }
 
     public void send(EmailEntity emailEntity) {
-        System.out.println("Sending message -> " + emailEntity.getMessage());
+        char[] msgArr = convertEmailEntityToCharArr(emailEntity);
+        System.out.println("Message char array length" + msgArr.length);
+    }
+
+    // A simple method that converts emailEntity's message into char array
+    private char[] convertEmailEntityToCharArr(EmailEntity emailEntity) {
+        return emailEntity.getMessage().toCharArray();
     }
 }
