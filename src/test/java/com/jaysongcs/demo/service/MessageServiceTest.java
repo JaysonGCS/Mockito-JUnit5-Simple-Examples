@@ -52,7 +52,6 @@ class MessageServiceTest {
 
         Assertions.assertTrue(result);
         Mockito.verify(emailService, Mockito.times(1)).send(any(EmailEntity.class));
-
     }
 
     @Test
@@ -75,7 +74,6 @@ class MessageServiceTest {
         boolean result = classToTest.sendEncryptedEmailMsg(msg);
         Assertions.assertTrue(result);
         Mockito.verify(emailService, Mockito.times(1)).send(any(EmailEntity.class));
-
     }
 
     @Test

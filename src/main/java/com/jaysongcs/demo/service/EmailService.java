@@ -4,7 +4,7 @@ import com.jaysongcs.demo.entity.EmailEntity;
 
 public class EmailService {
     public boolean isServiceActive() {
-        return true;
+        return false;
     }
 
     public void send(EmailEntity emailEntity) {
